@@ -1,0 +1,25 @@
+.section-header {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.sh-num {
+  display: flex;
+  align-items: center;
+  padding: 13px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  border-right: 1px solid var(--line);
+  opacity: 0.35;
+}
+
+.sh-title {
+  display: flex;
+  align-items: center;
+  padding: 13px 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+}

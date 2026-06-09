@@ -1,0 +1,148 @@
+.products {
+  border-bottom: 1px solid var(--line);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── Card ────────────────────────── */
+.product-card {
+  padding: 36px 20px 28px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+  cursor: default;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background  0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    color       0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity     0.7s  cubic-bezier(0.16, 1, 0.3, 1),
+    transform   0.7s  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+a.product-card {
+  cursor: pointer;
+}
+
+.product-card:nth-child(even) {
+  border-right: none;
+}
+
+.product-card:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+a.product-card:hover:not(.product-card--soon) {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+a.product-card:hover .product-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ── Top row ─────────────────────── */
+.product-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.product-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  opacity: 0.3;
+}
+
+.product-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+}
+
+.product-badge--live { opacity: 0.55; }
+.product-badge--soon { opacity: 0.25; }
+
+/* ── Name ────────────────────────── */
+.product-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 5.5vw, 72px);
+  letter-spacing: 0.015em;
+  line-height: 0.88;
+  margin-bottom: 20px;
+}
+
+.product-card--soon .product-name {
+  opacity: 0.18;
+}
+
+/* ── Description ─────────────────── */
+.product-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.9;
+  flex: 1;
+  margin-bottom: 28px;
+  opacity: 0.55;
+}
+
+.product-desc--empty { flex: 1; }
+
+/* ── Footer row ──────────────────── */
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid currentColor;
+  margin-top: auto;
+  opacity: 0.5;
+}
+
+.product-url {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.product-arrow {
+  font-size: 16px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-coming {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  opacity: 0.4;
+}
+
+/* ── Mobile ──────────────────────── */
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-card:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-card:last-child {
+    border-bottom: none;
+  }
+}
