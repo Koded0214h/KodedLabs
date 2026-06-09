@@ -1,0 +1,68 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- dot grid tile for upper-right decoration -->
+    <pattern id="grid-dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="4" height="4" fill="rgba(255,255,255,0.1)"/>
+    </pattern>
+  </defs>
+
+  <!-- ─── Background ──────────────────────────────────────────── -->
+  <rect width="1200" height="630" fill="#000"/>
+
+  <!-- ─── Structural grid lines ───────────────────────────────── -->
+  <!-- top-bar bottom edge -->
+  <rect x="0" y="64" width="1200" height="1" fill="rgba(255,255,255,0.18)"/>
+  <!-- bottom-bar top edge -->
+  <rect x="0" y="566" width="1200" height="1" fill="rgba(255,255,255,0.18)"/>
+  <!-- top-bar column dividers -->
+  <rect x="104" y="0"  width="1" height="64"  fill="rgba(255,255,255,0.18)"/>
+  <rect x="620" y="0"  width="1" height="64"  fill="rgba(255,255,255,0.18)"/>
+  <!-- bottom-bar column divider -->
+  <rect x="800" y="566" width="1" height="64" fill="rgba(255,255,255,0.18)"/>
+  <!-- right-side vertical rule (main area) -->
+  <rect x="1100" y="64" width="1" height="502" fill="rgba(255,255,255,0.08)"/>
+
+  <!-- ─── Dot-grid decoration (upper right) ───────────────────── -->
+  <rect x="1101" y="65" width="98" height="220" fill="url(#grid-dots)"/>
+
+  <!-- ─── Top bar ─────────────────────────────────────────────── -->
+  <text x="36" y="42"
+        font-family="Impact,'Arial Narrow',Arial,sans-serif"
+        font-size="22" fill="rgba(255,255,255,0.5)" letter-spacing="5">KL</text>
+
+  <text x="362" y="40"
+        font-family="'Courier New',Courier,monospace"
+        font-size="12" fill="rgba(255,255,255,0.4)" letter-spacing="4">KODEDLABS.COM</text>
+
+  <text x="1164" y="40" text-anchor="end"
+        font-family="'Courier New',Courier,monospace"
+        font-size="11" fill="rgba(255,255,255,0.32)" letter-spacing="2.5">INDEPENDENT PRODUCT STUDIO</text>
+
+  <!-- ─── Main wordmark ────────────────────────────────────────── -->
+  <text x="44" y="388"
+        font-family="Impact,'Arial Narrow',Arial,sans-serif"
+        font-size="310" fill="#ffffff" letter-spacing="-6">KODED</text>
+
+  <text x="46" y="553"
+        font-family="Impact,'Arial Narrow',Arial,sans-serif"
+        font-size="195" fill="rgba(255,255,255,0.2)" letter-spacing="-4">LABS</text>
+
+  <!-- ─── EST. label (right column) ───────────────────────────── -->
+  <text x="1150" y="130"
+        font-family="'Courier New',Courier,monospace"
+        text-anchor="end" font-size="10"
+        fill="rgba(255,255,255,0.3)" letter-spacing="3">EST.</text>
+  <text x="1150" y="148"
+        font-family="'Courier New',Courier,monospace"
+        text-anchor="end" font-size="10"
+        fill="rgba(255,255,255,0.3)" letter-spacing="3">2025</text>
+
+  <!-- ─── Bottom bar ───────────────────────────────────────────── -->
+  <text x="36" y="606"
+        font-family="'Courier New',Courier,monospace"
+        font-size="12" fill="rgba(255,255,255,0.42)" letter-spacing="3">BUILDING FROM LAGOS, NIGERIA</text>
+
+  <text x="1164" y="606" text-anchor="end"
+        font-family="'Courier New',Courier,monospace"
+        font-size="12" fill="rgba(255,255,255,0.42)" letter-spacing="2">04 LIVE PRODUCTS</text>
+</svg>
