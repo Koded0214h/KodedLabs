@@ -11,6 +11,7 @@
     "og": "rsvg-convert -w 1200 -h 630 public/og.svg -o public/og.png"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

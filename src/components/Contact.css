@@ -1,0 +1,176 @@
+.contact {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.contact-body {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+/* ── Form ─────────────────────────── */
+.contact-form {
+  padding: 52px 24px;
+  border-right: 1px solid var(--line-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.cf-field {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 28px;
+}
+
+.cf-field + .cf-field {
+  padding-left: 28px;
+  border-left: 1px solid var(--line);
+}
+
+.cf-field--full {
+  padding-top: 28px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 28px;
+}
+
+.cf-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  opacity: 0.4;
+  margin-bottom: 10px;
+}
+
+.cf-input,
+.cf-textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 8px 0;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s;
+}
+
+.cf-input::placeholder,
+.cf-textarea::placeholder {
+  opacity: 0.2;
+}
+
+.cf-input:focus,
+.cf-textarea:focus {
+  border-bottom-color: var(--fg);
+}
+
+.cf-footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-top: 28px;
+}
+
+.cf-submit {
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  padding: 13px 28px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.cf-submit:hover {
+  opacity: 0.85;
+  transform: translateX(2px);
+}
+
+.cf-submit--loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cf-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+
+.cf-status--ok  { opacity: 0.55; }
+.cf-status--err { color: #e55; }
+
+/* ── Info ─────────────────────────── */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ci-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ci-block:last-child {
+  border-bottom: none;
+}
+
+.ci-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  opacity: 0.35;
+  margin-bottom: 8px;
+}
+
+.ci-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px, 1.6vw, 22px);
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.ci-value--link {
+  transition: opacity 0.15s;
+}
+
+.ci-value--link:hover {
+  opacity: 0.6;
+}
+
+/* ── Mobile ──────────────────────── */
+@media (max-width: 768px) {
+  .contact-body {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    border-right: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .cf-row {
+    grid-template-columns: 1fr;
+    border-bottom: none;
+  }
+
+  .cf-field + .cf-field {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+}

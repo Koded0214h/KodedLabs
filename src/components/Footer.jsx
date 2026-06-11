@@ -12,6 +12,11 @@ export default function Footer() {
           <span>Building from Lagos.</span>
         </div>
         <div className="footer-right">
+          <a href="/status" className="footer-status">
+            <span className="footer-status-dot" />
+            SYSTEM STATUS
+          </a>
+          <span className="footer-sep">·</span>
           <span>kodedlabs.com</span>
         </div>
       </div>

@@ -5,6 +5,7 @@ const links = [
   { href: '#about',    label: 'ABOUT'    },
   { href: '#products', label: 'PRODUCTS' },
   { href: '#people',   label: 'PEOPLE'   },
+  { href: '#contact',  label: 'CONTACT'  },
 ]
 
 export default function Nav({ onToggle, theme }) {

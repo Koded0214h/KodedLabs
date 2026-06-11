@@ -8,6 +8,7 @@
   --bg: #000;
   --fg: #fff;
   --line: rgba(255, 255, 255, 0.18);
+  --line-strong: rgba(255, 255, 255, 0.5);
   --line-solid: #fff;
   --dim: rgba(255, 255, 255, 0.4);
   --font-display: 'Bebas Neue', sans-serif;
@@ -18,6 +19,7 @@
   --bg: #fff;
   --fg: #000;
   --line: rgba(0, 0, 0, 0.18);
+  --line-strong: rgba(0, 0, 0, 0.5);
   --line-solid: #000;
   --dim: rgba(0, 0, 0, 0.4);
 }

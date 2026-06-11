@@ -8,6 +8,10 @@ export default function Hero() {
         <span className="hero-mono">KL</span>
         <span className="hero-domain">kodedlabs.com</span>
         <span className="hero-location">Lagos, NG</span>
+        <a href="/status" className="hero-status">
+          <span className="hero-status-dot" />
+          ALL SYSTEMS OPERATIONAL
+        </a>
       </div>
 
       <div className="hero-main">

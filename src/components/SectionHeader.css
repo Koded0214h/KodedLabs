@@ -1,7 +1,7 @@
 .section-header {
   display: grid;
   grid-template-columns: 72px 1fr;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-strong);
 }
 
 .sh-num {
