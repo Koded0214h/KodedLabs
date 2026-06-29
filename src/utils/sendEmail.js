@@ -1,4 +1,5 @@
-import emailjs from '@emailjs/browser'
+// Dynamic import so @emailjs/browser never loads during SSR prerendering
+let emailjs
 
 // Configure via .env:
 //   VITE_EMAILJS_SERVICE_ID   — your Gmail service ID from EmailJS dashboard
