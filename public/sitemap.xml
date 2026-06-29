@@ -3,42 +3,42 @@
 
   <url>
     <loc>https://kodedlabs.com/</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://kodedlabs.com/#about</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://kodedlabs.com/#products</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://kodedlabs.com/#people</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://kodedlabs.com/#contact</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://kodedlabs.com/status</loc>
-    <lastmod>BUILD_DATE</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
