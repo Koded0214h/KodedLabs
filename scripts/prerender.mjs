@@ -1,59 +1,66 @@
 /**
  * Postbuild prerender script.
- * Serves the dist folder, visits each route with a headless browser,
- * and writes the fully-rendered HTML back to disk — so crawlers get
- * real content instead of an empty <div id="root">.
- *
- * Run automatically via:  npm run build  (calls vite build && node scripts/prerender.mjs)
+ * Uses Vite's SSR loader to render each entry into the built HTML shell,
+ * which keeps SEO-friendly markup without requiring a headless browser.
  */
 
-import { chromium } from 'playwright'
-import { createServer } from 'http'
+import { createElement } from 'react'
+import { renderToString } from 'react-dom/server'
 import { readFileSync, writeFileSync } from 'fs'
-import { resolve, join } from 'path'
-import handler from 'serve-handler'
+import { join, resolve } from 'path'
+import { createServer } from 'vite'
 
 const TODAY = new Date().toISOString().split('T')[0]
 
-const DIST   = resolve(process.cwd(), 'dist')
-const PORT   = 4999
+const DIST = resolve(process.cwd(), 'dist')
 const ROUTES = [
-  { route: '/',       file: 'index.html'  },
-  { route: '/status', file: 'status.html' },
+  { entry: '/src/App.jsx',       file: 'index.html'  },
+  { entry: '/src/StatusApp.jsx', file: 'status.html' },
 ]
 
-// Minimal static file server over dist/
-const server = createServer((req, res) =>
-  handler(req, res, { public: DIST, cleanUrls: true })
-)
-
-await new Promise(r => server.listen(PORT, r))
-console.log(`[prerender] serving dist on :${PORT}`)
-
-const browser = await chromium.launch()
-const page    = await browser.newPage()
-
-for (const { route, file } of ROUTES) {
-  const url      = `http://localhost:${PORT}${route}`
-  const outPath  = join(DIST, file)
-
-  await page.goto(url, { waitUntil: 'networkidle' })
-
-  // Give React one extra tick to flush any deferred state
-  await page.waitForTimeout(200)
-
-  const html = await page.content()
-  writeFileSync(outPath, html, 'utf8')
-  console.log(`[prerender] ✓ ${route} → dist/${file}`)
+function stampTheme(html, theme = 'dark') {
+  return html.replace(/<html([^>]*)>/, (_match, attrs) => {
+    if (attrs.includes('data-theme=')) {
+      return `<html${attrs.replace(/data-theme="[^"]*"/, `data-theme="${theme}"`)}>`
+    }
+    return `<html${attrs} data-theme="${theme}">`
+  })
 }
 
-await browser.close()
-server.close()
+function injectMarkup(html, markup) {
+  return html.replace('<div id="root"></div>', `<div id="root">${markup}</div>`)
+}
 
-// Stamp sitemap with today's date so Google knows to recrawl
-const sitemapPath = join(DIST, 'sitemap.xml')
-const sitemap = readFileSync(sitemapPath, 'utf8')
-writeFileSync(sitemapPath, sitemap.replaceAll('BUILD_DATE', TODAY))
-console.log(`[prerender] ✓ sitemap.xml lastmod → ${TODAY}`)
+const vite = await createServer({
+  appType: 'custom',
+  server: {
+    middlewareMode: true,
+    ws: false,
+    watch: null,
+  },
+})
 
-console.log('[prerender] done')
+try {
+  for (const { entry, file } of ROUTES) {
+    const mod = await vite.ssrLoadModule(entry)
+    const markup = renderToString(createElement(mod.default))
+    const outPath = join(DIST, file)
+    const html = readFileSync(outPath, 'utf8')
+
+    writeFileSync(
+      outPath,
+      injectMarkup(stampTheme(html), markup),
+      'utf8'
+    )
+
+    console.log(`[prerender] ✓ ${entry} → dist/${file}`)
+  }
+
+  const sitemapPath = join(DIST, 'sitemap.xml')
+  const sitemap = readFileSync(sitemapPath, 'utf8')
+  writeFileSync(sitemapPath, sitemap.replaceAll('BUILD_DATE', TODAY), 'utf8')
+  console.log(`[prerender] ✓ sitemap.xml lastmod → ${TODAY}`)
+  console.log('[prerender] done')
+} finally {
+  await vite.close()
+}
