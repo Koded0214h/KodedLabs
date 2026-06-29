@@ -13,6 +13,8 @@ import { readFileSync, writeFileSync } from 'fs'
 import { resolve, join } from 'path'
 import handler from 'serve-handler'
 
+const TODAY = new Date().toISOString().split('T')[0]
+
 const DIST   = resolve(process.cwd(), 'dist')
 const PORT   = 4999
 const ROUTES = [
@@ -47,4 +49,11 @@ for (const { route, file } of ROUTES) {
 
 await browser.close()
 server.close()
+
+// Stamp sitemap with today's date so Google knows to recrawl
+const sitemapPath = join(DIST, 'sitemap.xml')
+const sitemap = readFileSync(sitemapPath, 'utf8')
+writeFileSync(sitemapPath, sitemap.replaceAll('BUILD_DATE', TODAY))
+console.log(`[prerender] ✓ sitemap.xml lastmod → ${TODAY}`)
+
 console.log('[prerender] done')
