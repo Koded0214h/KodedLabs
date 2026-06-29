@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "og": "rsvg-convert -w 1200 -h 630 public/og.svg -o public/og.png"
@@ -24,6 +24,8 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "playwright": "^1.61.1",
+    "serve-handler": "^6.1.7",
     "vite": "^8.0.12"
   }
 }

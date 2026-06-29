@@ -1,0 +1,42 @@
+# Koded Labs
+
+> Independent product studio building from Lagos, Nigeria.
+> Founded and operated by Raufu Abdulrahman Ayobami (Koded).
+
+## About
+
+Koded Labs is a lean, independent software studio that ships real products.
+We focus on the gap between what exists and what should — building tools for
+developers, workers, and infrastructure that doesn't yet exist in our markets.
+Every product starts with a problem worth solving and ends with something
+people can actually use.
+
+Principles: small by design, focused by necessity, serious about craft.
+
+## Products
+
+- **Scafld** — The complete backend lifecycle platform. From idea to deployed
+  API without switching tools. Status: Live.
+  URL: https://scafld.kodedlabs.com
+
+- **Recivo** — WAEC for the informal economy. A voice-and-simulation skill exam
+  that turns a trader's hands into a verifiable credential. Status: Live.
+  URL: https://recivo.vercel.app
+
+- **EV Hacks** — Nigeria's EV intelligence layer. Find where to build EV
+  charging infrastructure or where to charge your vehicle. Status: Live.
+  URL: https://ev-hacks.vercel.app
+
+- **Stackd** — Coming soon.
+
+## Founder
+
+- **Koded** (Abdulrahman Ayobami) — Founder, Engineer, Builder.
+  Handles product, engineering, and strategy across everything the lab ships.
+  Origin: Lagos, Nigeria.
+
+## Contact
+
+- Website: https://kodedlabs.com
+- Status: https://kodedlabs.com/status
+- Email: coder0214h@gmail.com
