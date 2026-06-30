@@ -31,6 +31,13 @@ const products = [
     status: 'SOON',
     url: null,
   },
+  {
+    num: '05',
+    name: 'SHIP',
+    desc: 'AI-powered deployment CLI. Describe your stack in plain English—Ship generates Docker, Nginx, SSL, and CI/CD configs and deploys to your own VPS.',
+    status: 'LIVE',
+    url: 'https://ship-it.kodedlabs.com',
+  },
 ]
 
 function ProductCard({ p, index }) {
