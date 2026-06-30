@@ -47,7 +47,7 @@ export default function Hero() {
           className="hero-stat"
           style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.54s both' }}
         >
-          <span className="hero-stat-num">04</span>
+          <span className="hero-stat-num">05</span>
           <span className="hero-stat-label">LIVE<br />PRODUCTS</span>
         </div>
         <a
