@@ -1,6 +1,7 @@
 .education {
   padding: var(--section-pad-desktop) 24px;
   background: var(--bg-base);
+  border-top: 1px solid var(--border);
 }
 
 .edu-grid {

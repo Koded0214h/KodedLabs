@@ -13,17 +13,20 @@
 .prefooter-mascot {
   position: relative;
   z-index: 1;
-  max-width: 480px;
-  margin-bottom: -40px;
+  max-width: 460px;
+  /* The model auto-fits with padding inside its box; negative margins tuck the
+     surrounding content into that transparent padding so the model reads tight
+     to the heading below without clipping the head. */
+  margin: -24px 0 -56px;
 }
 
 .prefooter-title {
   position: relative;
   z-index: 1;
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 46px);
+  letter-spacing: -0.02em;
 }
 
 .prefooter-subtext {
@@ -59,19 +62,21 @@
 
 .prefooter-input:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(0, 194, 255, 0.18);
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .prefooter-submit {
-  padding: 13px 22px;
+  padding: 13px 24px;
   border: none;
-  border-radius: 8px;
-  background: var(--accent-gradient);
-  color: #fff;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 14px;
+  border-radius: 6px;
+  background: var(--text-primary);
+  color: var(--bg-base);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: transform 0.15s ease-out, opacity 0.15s ease-out;
   white-space: nowrap;

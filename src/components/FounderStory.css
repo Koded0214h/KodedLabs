@@ -1,6 +1,7 @@
 .founder-story {
   padding: var(--section-pad-desktop) 24px;
   background: var(--bg-base);
+  border-top: 1px solid var(--border);
 }
 
 .fs-split {
@@ -23,8 +24,9 @@
 .fs-eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--accent-purple);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
 .fs-desc {
@@ -37,12 +39,13 @@
 }
 
 .fs-quote {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(20px, 2.4vw, 26px);
-  line-height: 1.4;
+  font-size: clamp(21px, 2.6vw, 28px);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
   color: var(--text-primary);
-  border-left: 2px solid var(--accent-purple);
+  border-left: 2px solid var(--text-primary);
   padding-left: 20px;
   margin-bottom: 28px;
   max-width: 460px;

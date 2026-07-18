@@ -4,27 +4,49 @@
   padding: 0;
 }
 
-:root {
-  --bg-base:    #0a0a0a;
-  --bg-hero:    #0d0d0d;
-  --bg-surface: #111111;
-  --bg-card:    #141414;
-  --border:     #232323;
-  --border-strong: #333333;
-  --text-primary:   #f5f5f5;
-  --text-secondary: #8b8b8b;
+/* Monas is not on Google Fonts — self-hosted. Drop the font file into
+   public/fonts/ named Monas.woff2 (or .woff/.otf/.ttf) and headings pick it
+   up automatically; until then the stack falls back to Sofia Sans. */
+@font-face {
+  font-family: 'Monas';
+  src: url('/fonts/Monas.woff2') format('woff2'),
+       url('/fonts/Monas.woff')  format('woff'),
+       url('/fonts/Monas.otf')   format('opentype'),
+       url('/fonts/Monas.ttf')   format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-  --accent-blue:   #00c2ff;
-  --accent-purple: #7c3aed;
-  --accent-gradient: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+:root {
+  /* Pitch black — every surface is true #000. Structure is carried by white
+     hairlines, not gray elevation. Black is primary, white secondary,
+     everything else is a sparingly-used accent. */
+  --bg-base:    #000000;
+  --bg-hero:    #000000;
+  --bg-surface: #000000;
+  --bg-card:    #000000;
+  --border:        rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.34);
+  --text-primary:   #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.56);
+  --text-faint:     rgba(255, 255, 255, 0.34);
+
+  /* The only "accent" is white inversion. `--accent-gradient` is now a flat
+     white so every old gradient fill/clip collapses to monochrome. The single
+     piece of chroma on the page is the live-status signal. */
+  --accent-blue:     #ffffff;
+  --accent-purple:   #ffffff;
+  --accent-gradient: #ffffff;
   --status-live: #39d353;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Monas', 'Sofia Sans', -apple-system, sans-serif;
+  --font-sans: 'Sofia Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
-  --radius-card: 12px;
-  --section-pad-desktop: 112px;
-  --section-pad-mobile: 64px;
+  --radius-card: 8px;
+  --section-pad-desktop: 120px;
+  --section-pad-mobile: 72px;
 
   /* Legacy aliases kept for src/StatusApp.jsx (separate page, dark/light toggle
      out of scope for this revamp) */

@@ -32,11 +32,11 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: var(--accent-gradient);
-  font-family: var(--font-sans);
+  background: var(--text-primary);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 11px;
-  color: #fff;
+  color: var(--bg-base);
 }
 
 .footer-name {

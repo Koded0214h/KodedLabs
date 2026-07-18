@@ -33,8 +33,8 @@ export default function PreFooterCTA() {
         scale={2.8}
         rotationY={0}
         idle="none"
-        height={480}
-        cameraDistance={6}
+        height={440}
+        fitMargin={1.35}
         placeholderLabel="MASCOT"
         className="prefooter-mascot"
       />

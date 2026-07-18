@@ -16,8 +16,9 @@
 .hwb-eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--accent-blue);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
 .hwb-tabs {
@@ -30,6 +31,7 @@
 }
 
 .hwb-tab {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -43,18 +45,34 @@
   transition: background 0.15s ease-out, color 0.15s ease-out;
 }
 
+.hwb-tab::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--text-primary);
+  transform: scaleY(0);
+  transition: transform 0.2s ease-out;
+}
+
 .hwb-tab:last-child {
   border-bottom: none;
 }
 
 .hwb-tab:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .hwb-tab--active {
   color: var(--text-primary);
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hwb-tab--active::before {
+  transform: scaleY(1);
 }
 
 .hwb-tab-index {
@@ -64,17 +82,15 @@
 }
 
 .hwb-tab--active .hwb-tab-index {
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text-primary);
   opacity: 1;
 }
 
 .hwb-tab-label {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 14.5px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
 .hwb-panel {
@@ -83,10 +99,11 @@
 }
 
 .hwb-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(22px, 2.8vw, 30px);
-  line-height: 1.25;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   margin-bottom: 14px;
 }
 

@@ -1,5 +1,4 @@
-import useReveal from '../hooks/useReveal'
-import Model3D from './shared/Model3DLazy'
+import { useEffect, useRef } from 'react'
 import GlowGradient from './shared/GlowGradient'
 import SectionHeading from './shared/SectionHeading'
 import BrowserChromeFrame from './shared/BrowserChromeFrame'
@@ -8,19 +7,13 @@ import StatusDot from './shared/StatusDot'
 import { products } from '../data'
 import './Products.css'
 
-function ProductRow({ p, index }) {
-  const ref = useReveal()
+function ProductRow({ p }) {
   const isLive = p.status === 'live'
   const Tag = p.url ? 'a' : 'div'
   const linkProps = p.url ? { href: p.url, target: '_blank', rel: 'noreferrer' } : {}
 
   return (
-    <Tag
-      ref={ref}
-      className={`product-row reveal${!p.url ? ' product-row--soon' : ''}`}
-      style={{ transitionDelay: `${index * 0.08}s` }}
-      {...linkProps}
-    >
+    <Tag className={`product-row${!p.url ? ' product-row--soon' : ''}`} {...linkProps}>
       <div className="product-row-media">
         <BrowserChromeFrame label={p.url ? p.url.replace('https://', '') : undefined}>
           {p.screenshot
@@ -62,27 +55,102 @@ function ProductRow({ p, index }) {
   )
 }
 
+// Scroll-linked stack. The `.products-scroll` spacer is several viewports tall;
+// as it scrolls past the pinned sticky, each card rises from below and covers
+// the previous one (newest on top), while placed cards recede up + shrink + dim
+// so the growing deck stays visible. Once the last card rests, the sticky
+// releases and normal scrolling resumes.
+function useScrollStack(count) {
+  const scrollRef = useRef(null)
+  const cardRefs = useRef([])
+
+  useEffect(() => {
+    const update = () => {
+      const el = scrollRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const travel = rect.height - window.innerHeight
+      const p = travel > 0 ? Math.min(1, Math.max(0, -rect.top / travel)) : 0
+      // activeFloat runs 1..count so card 0 rests on top at the start and each
+      // card i becomes the resting top card at p = i/(count-1).
+      const active = 1 + p * (count - 1)
+
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return
+        const delta = active - i
+        let translateY, scale, opacity
+
+        if (delta < 0) {
+          translateY = 140
+          opacity = 0
+          scale = 0.94
+        } else if (delta <= 1) {
+          translateY = (1 - delta) * 140
+          opacity = Math.min(delta * 1.6, 1)
+          scale = 0.94 + delta * 0.06
+        } else {
+          const past = Math.min(delta - 1, 8)
+          translateY = -past * 10
+          opacity = Math.max(1 - past * 0.14, 0.25)
+          scale = 1 - past * 0.03
+        }
+
+        card.style.transform = `translateY(${translateY}px) scale(${scale})`
+        card.style.opacity = opacity
+        card.style.zIndex = i + 1
+      })
+    }
+
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        update()
+        ticking = false
+      })
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [count])
+
+  return { scrollRef, cardRefs }
+}
+
 export default function Products() {
+  const { scrollRef, cardRefs } = useScrollStack(products.length)
+  const scrollHeight = `${(products.length - 1) * 72 + 100}vh`
+
   return (
     <section className="products" id="products">
-      <Model3D
-        modelUrl="/models/drone.glb"
-        scale={1.1}
-        idle="bob"
-        height={200}
-        rotationY={Math.PI}
-        placeholderLabel="DRONE"
-      />
-      <GlowGradient size={620} opacity={0.16} />
-      <SectionHeading
-        eyebrow="PRODUCTS"
-        title="Real things, shipped."
-        subtext="Five products, each solving one problem worth solving — for developers, workers, and the infrastructure that doesn't exist yet."
-      />
-      <div className="products-list">
-        {products.map((p, i) => (
-          <ProductRow key={p.id} p={p} index={i} />
-        ))}
+      <div ref={scrollRef} className="products-scroll" style={{ height: scrollHeight }}>
+        <div className="products-sticky">
+          <div className="products-inner">
+            <GlowGradient size={560} opacity={0.12} />
+            <SectionHeading
+              eyebrow="Products"
+              title="Real things, shipped."
+              subtext="Every product solves one problem worth solving — for developers, workers, and the infrastructure that doesn't exist yet."
+            />
+            <div className="products-stack">
+              {products.map((p, i) => (
+                <div
+                  key={p.id}
+                  className="product-stack-slot"
+                  ref={el => { cardRefs.current[i] = el }}
+                >
+                  <ProductRow p={p} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )

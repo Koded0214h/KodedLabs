@@ -7,12 +7,12 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    var(--accent-blue) 0%,
-    var(--accent-purple) 45%,
-    transparent 72%
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.32) 40%,
+    transparent 70%
   );
   opacity: var(--glow-opacity);
-  filter: blur(56px);
+  filter: blur(64px);
   pointer-events: none;
   z-index: 0;
 }

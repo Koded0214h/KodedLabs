@@ -7,14 +7,12 @@
 }
 
 .stat-counter-num {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: clamp(32px, 4vw, 44px);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(34px, 4.4vw, 48px);
   line-height: 1;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .stat-counter-label {

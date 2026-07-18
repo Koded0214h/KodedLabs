@@ -1,5 +1,4 @@
 import useReveal from '../hooks/useReveal'
-import StatusDot from './shared/StatusDot'
 import './FounderStory.css'
 
 export default function FounderStory() {
@@ -23,9 +22,6 @@ export default function FounderStory() {
           <blockquote className="fs-quote">
             "I will be the greatest engineer to ever come out of Africa."
           </blockquote>
-          <div className="fs-status">
-            <StatusDot label="Currently building Kodedstack · Nigeria" />
-          </div>
         </div>
       </div>
     </section>
