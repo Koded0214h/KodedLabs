@@ -1,0 +1,55 @@
+.education {
+  padding: var(--section-pad-desktop) 24px;
+  background: var(--bg-base);
+}
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.edu-tile {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: transform 0.2s ease-out, filter 0.2s ease-out;
+}
+
+.edu-tile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.edu-tile:hover {
+  transform: scale(1.02);
+  filter: brightness(1.08);
+}
+
+.edu-tile-caption {
+  padding: 14px 4px 4px;
+}
+
+.edu-tile-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-bottom: 4px;
+}
+
+.edu-tile-desc {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 720px) {
+  .edu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

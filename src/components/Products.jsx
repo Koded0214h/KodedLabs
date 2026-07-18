@@ -1,78 +1,62 @@
-import SectionHeader from './SectionHeader'
 import useReveal from '../hooks/useReveal'
+import Model3D from './shared/Model3DLazy'
+import GlowGradient from './shared/GlowGradient'
+import SectionHeading from './shared/SectionHeading'
+import BrowserChromeFrame from './shared/BrowserChromeFrame'
+import PlaceholderFrame from './shared/PlaceholderFrame'
+import StatusDot from './shared/StatusDot'
+import { products } from '../data'
 import './Products.css'
 
-const products = [
-  {
-    num: '01',
-    name: 'SCAFLD',
-    desc: 'The complete backend lifecycle platform. From idea to deployed API without switching tools.',
-    status: 'LIVE',
-    url: 'https://scafld.kodedlabs.com',
-  },
-  {
-    num: '02',
-    name: 'RECIVO',
-    desc: "WAEC for the informal economy. A voice-and-simulation skill exam that turns a trader's hands into a verifiable credential.",
-    status: 'LIVE',
-    url: 'https://recivo.vercel.app',
-  },
-  {
-    num: '03',
-    name: 'EV HACKS',
-    desc: "Nigeria's EV intelligence layer. Find where to build charging infrastructure or where to charge your vehicle.",
-    status: 'LIVE',
-    url: 'https://ev-hacks.vercel.app',
-  },
-  {
-    num: '04',
-    name: 'STACKD',
-    desc: null,
-    status: 'SOON',
-    url: null,
-  },
-  {
-    num: '05',
-    name: 'SHIP',
-    desc: 'AI-powered deployment CLI. Describe your stack in plain English—Ship generates Docker, Nginx, SSL, and CI/CD configs and deploys to your own VPS.',
-    status: 'LIVE',
-    url: 'https://ship-it.kodedlabs.com',
-  },
-]
-
-function ProductCard({ p, index }) {
+function ProductRow({ p, index }) {
   const ref = useReveal()
+  const isLive = p.status === 'live'
   const Tag = p.url ? 'a' : 'div'
-  const linkProps = p.url
-    ? { href: p.url, target: '_blank', rel: 'noreferrer' }
-    : {}
+  const linkProps = p.url ? { href: p.url, target: '_blank', rel: 'noreferrer' } : {}
 
   return (
     <Tag
       ref={ref}
-      className={`product-card reveal${p.status === 'SOON' ? ' product-card--soon' : ''}`}
+      className={`product-row reveal${!p.url ? ' product-row--soon' : ''}`}
       style={{ transitionDelay: `${index * 0.08}s` }}
       {...linkProps}
     >
-      <div className="product-top">
-        <span className="product-num">{p.num}</span>
-        <span className={`product-badge product-badge--${p.status.toLowerCase()}`}>
-          {p.status}
-        </span>
+      <div className="product-row-media">
+        <BrowserChromeFrame label={p.url ? p.url.replace('https://', '') : undefined}>
+          {p.screenshot
+            ? <img src={p.screenshot} alt={`${p.name} screenshot`} />
+            : <PlaceholderFrame label="SCREENSHOT PENDING" ratio="16 / 10" />
+          }
+        </BrowserChromeFrame>
       </div>
 
-      <div className="product-name">{p.name}</div>
+      <div className="product-row-body">
+        <div className="product-row-top">
+          <span className="product-num">{p.order}</span>
+          {isLive
+            ? <StatusDot label="LIVE" />
+            : <span className="product-badge product-badge--soon">IN PROGRESS</span>
+          }
+        </div>
 
-      {p.desc
-        ? <p className="product-desc">{p.desc}</p>
-        : <div className="product-desc product-desc--empty" />
-      }
+        <h3 className="product-row-title">
+          <span className="product-row-title-text">{p.name}</span>
+        </h3>
 
-      <div className="product-footer">
-        {p.url
-          ? <><span className="product-url">{p.url.replace('https://', '')}</span><span className="product-arrow">↗</span></>
-          : <span className="product-coming">COMING SOON</span>
-        }
+        {p.description && <p className="product-desc">{p.description}</p>}
+
+        {p.stack.length > 0 && (
+          <div className="product-tags">
+            {p.stack.map(t => <span key={t} className="product-tag">{t}</span>)}
+          </div>
+        )}
+
+        {p.url && (
+          <div className="product-row-cta">
+            <span>{p.url.replace('https://', '')}</span>
+            <span className="product-arrow">↗</span>
+          </div>
+        )}
       </div>
     </Tag>
   )
@@ -81,10 +65,23 @@ function ProductCard({ p, index }) {
 export default function Products() {
   return (
     <section className="products" id="products">
-      <SectionHeader num="03" title="PRODUCTS" />
-      <div className="products-grid">
+      <Model3D
+        modelUrl="/models/drone.glb"
+        scale={1.1}
+        idle="bob"
+        height={200}
+        rotationY={Math.PI}
+        placeholderLabel="DRONE"
+      />
+      <GlowGradient size={620} opacity={0.16} />
+      <SectionHeading
+        eyebrow="PRODUCTS"
+        title="Real things, shipped."
+        subtext="Five products, each solving one problem worth solving — for developers, workers, and the infrastructure that doesn't exist yet."
+      />
+      <div className="products-list">
         {products.map((p, i) => (
-          <ProductCard key={p.num} p={p} index={i} />
+          <ProductRow key={p.id} p={p} index={i} />
         ))}
       </div>
     </section>

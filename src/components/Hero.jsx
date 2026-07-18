@@ -1,73 +1,47 @@
+import Model3D from './shared/Model3DLazy'
+import BrowserChromeFrame from './shared/BrowserChromeFrame'
+import GlowGradient from './shared/GlowGradient'
 import './Hero.css'
 
 export default function Hero() {
   return (
     <section className="hero">
+      <Model3D
+        modelUrl="/models/modural_robot.glb"
+        scale={4.5}
+        idle="bob"
+        height={480}
+        cameraDistance={15}
+        placeholderLabel="MASCOT"
+        className="hero-mascot"
+      />
 
-      <div className="hero-topbar">
-        <span className="hero-mono">KL</span>
-        <span className="hero-domain">kodedlabs.com</span>
-        <span className="hero-location">Lagos, NG</span>
-        <a href="/status" className="hero-status">
-          <span className="hero-status-dot" />
-          ALL SYSTEMS OPERATIONAL
-        </a>
+      <h1 className="hero-title">
+        We build the things<br />that should already exist.
+      </h1>
+      <p className="hero-subtitle">
+        A small studio shipping real products for developers, workers, and
+        infrastructure that doesn't exist yet.
+      </p>
+
+      <div className="hero-actions">
+        <a href="#products" className="hero-btn hero-btn--primary">View Products</a>
+        <a href="#founder" className="hero-btn hero-btn--ghost">Read the story</a>
       </div>
 
-      <div className="hero-main">
-        <div
-          className="hero-wordmark"
-          style={{ animation: 'cell-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.05s both' }}
-        >
-          KODED<br />LABS
-        </div>
-        <div
-          className="hero-meta"
-          style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.28s both' }}
-        >
-          <span>PRODUCT STUDIO</span>
-          <span>EST. 2025</span>
-          <span>INDEPENDENT</span>
-        </div>
+      <div className="hero-video-wrap">
+        <GlowGradient className="hero-video-glow" size={480} opacity={0.18} pulse />
+        <BrowserChromeFrame label="scafld.kodedlabs.com" className="hero-video-frame">
+          <video
+            src="/videos/scafld-demo.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        </BrowserChromeFrame>
       </div>
-
-      <div
-        className="hero-tagline"
-        style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.42s both' }}
-      >
-        <p>
-          We build products that solve real problems —<br />
-          for developers, for workers, for infrastructure<br />
-          that doesn't exist yet.
-        </p>
-      </div>
-
-      <div className="hero-bar">
-        <div
-          className="hero-stat"
-          style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.54s both' }}
-        >
-          <span className="hero-stat-num">05</span>
-          <span className="hero-stat-label">LIVE<br />PRODUCTS</span>
-        </div>
-        <a
-          href="#products"
-          className="hero-cta"
-          style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.64s both' }}
-        >
-          <span>VIEW PRODUCTS</span>
-          <span className="hero-cta-arrow">→</span>
-        </a>
-        <a
-          href="#about"
-          className="hero-scroll-hint"
-          style={{ animation: 'cell-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.74s both' }}
-          aria-label="Scroll down"
-        >
-          <span className="hero-scroll-dot" />
-        </a>
-      </div>
-
     </section>
   )
 }

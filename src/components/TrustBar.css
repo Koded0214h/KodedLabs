@@ -1,0 +1,27 @@
+.trust-bar {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 24px 0;
+}
+
+.trust-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.trust-rule {
+  max-width: 900px;
+  margin: 32px auto 0;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .trust-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 0;
+  }
+}

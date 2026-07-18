@@ -1,0 +1,306 @@
+# Koded Labs — Landing Page Build Spec
+
+A GitHub-inspired dark landing page for Koded Labs (independent product studio). Restrained, technical, proof-driven — not a generic dark-mode SaaS page. Every visual element earns its place by showing real work, not decorating.
+
+---
+
+## 0. Design Principles
+
+- **Layered dark, not flat dark.** Depth through elevation (surface shades), not shadows.
+- **One accent family:** blue → purple gradient, used sparingly (Products section, Pre-footer CTA, focus states). Everything else stays monochrome.
+- **3D as spot illustration, not wallpaper.** Each 3D moment uses a distinct model, contained and purposeful, never sprawled across a viewport.
+- **Motion is functional.** Reveal-on-scroll, hover feedback, one deliberate hero animation. No idle looping "because we can."
+- **Reused components, not reinvented per section.** Browser-chrome frame, card grammar, stat count-up, and ticker/marquee are each built once and reused.
+- **Real proof over claims.** Screenshots, real recordings, real numbers — text describes, media proves.
+
+---
+
+## 1. Design Tokens
+
+**Color**
+```
+--bg-base:      #0a0a0a
+--bg-hero:      #0d0d0d
+--bg-surface:   #111111   /* section shift, one level up from base */
+--bg-card:      #141414
+--border:       #232323   /* hairline, 1px */
+--text-primary: #f5f5f5
+--text-secondary: #8b8b8b
+--accent-blue:  [lock exact hex when picked]
+--accent-purple:[lock exact hex when picked]
+--status-live:  #39d353   /* green, live/status dots only */
+```
+
+**Typography**
+- Headings: clean humanist sans (not mono)
+- Body: same sans family, lighter weight
+- Labels / meta / stats / stack tags / footer legal: monospace
+- Mono reserved strictly for labels and numerals — never body copy
+
+**Spacing / radius**
+- Consistent card radius across all card-style components (Products, video frame, browser-chrome, input)
+- Section vertical rhythm consistent top-to-bottom (lock a spacing scale: e.g. 96px/120px section padding desktop, 64px mobile)
+
+**Shared components to build once, reuse everywhere**
+- `BrowserChromeFrame` — used for hero video, Products screenshots
+- `Card` — used for Products (bordered, hover-lift) — explicitly NOT reused for Education (grid tiles, no border/lift)
+- `StatCounter` — count-up on scroll-into-view, used in Trust bar (and optionally Education if a stat is added there)
+- `Marquee/Ticker` — slow horizontal drift, used in Trust bar (program names) and How We Build (language strip)
+- `GlowGradient` — radial, blurred, accent-colored — used in Hero, Products, Pre-footer CTA only (bookends the accent color across the page)
+- `SectionHeading` — centered variant (Products, Education, Pre-footer CTA) vs left-aligned variant (How We Build)
+
+---
+
+## 2. Global Nav
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ [mascot mark] KODED LABS     Products  Education  About       │
+│                                          [● Status] [GitHub↗] │
+└──────────────────────────────────────────────────────────────┘
+```
+- Sticky. Transparent over hero, becomes solid/blurred (`backdrop-filter: blur`) on scroll.
+- Mascot mark ~24-28px, static — no animation in nav, animation is reserved for hero-scale moments.
+- Right side: live status pill (reuse `StatusDot` component — first appearance of a device repeated in Trust bar and Footer), GitHub link as primary CTA.
+
+---
+
+## 3. Hero
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│              We build products that solve                     │
+│              real problems.                                    │
+│         Independent product studio · Lagos, NG                │
+│         [ View Products ]   [ Read the story ]                │
+│                    ╱ ─ ─ glow ─ ─ ╲                            │
+│              ┌───────────────────────┐                         │
+│              │ ▸ [ product demo video ]│  browser-chrome frame │
+│              └───────────────────────┘                         │
+└──────────────────────────────────────────────────────────────┘
+```
+- Mascot (primary 3D model, largest instance alongside Pre-footer CTA) does ONE deliberate idle animation on load — not constant rotation.
+- Headline: clean sans, center or left per final layout call — locked as centered mission statement with subtext below.
+- **Scroll cue = glow + demo video**, not an arrow:
+  - `GlowGradient` positioned at top edge of the video frame, centered, blurred (`filter: blur(40-60px)`), accent color at ~15-20% opacity, subtle pulse loop (opacity 0.15→0.25, 3-4s ease-in-out).
+  - Video frame: `BrowserChromeFrame`, muted autoplay/loop of best product demo (Ship or Scafld — confirm which). Clicking jumps to Products section or opens full-size.
+  - `prefers-reduced-motion`: freeze glow pulse, use poster image instead of autoplay.
+- Respect `prefers-reduced-motion` globally for all 3D/motion; pause render loops on `visibilitychange`; cap `dpr` at `[1, 1.5]`.
+
+---
+
+## 4. Trust Bar
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│   05              7×              100+             2025      │
+│   LIVE            HACKATHON       STUDENTS         FOUNDED    │
+│   PRODUCTS        WINS            TAUGHT                      │
+├──────────────────────────────────────────────────────────────┤
+│  Harvard HSIL · AHEAD · GTCO Squad · AWS · Bloomberg Eng Academy│
+└──────────────────────────────────────────────────────────────┘
+```
+- 4-stat row, `StatCounter` component, counts up on scroll-into-view (IntersectionObserver, ~800ms tween). Numbers pulled from user's own updated data.
+- Thin rule, then `Marquee` of program/hackathon names — mono, low-opacity, brightens on hover per item, slow left drift.
+- Background shifts one shade up (`--bg-hero` → `--bg-surface`) to mark section break without a hard divider.
+
+---
+
+## 5. Products Showcase
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                  [ 3D model #2, centered ]                     │
+│                     small, one idle anim                       │
+│                    SECTION HEADLINE (TBD)                      │
+│         Subtext — one sentence, narrow max-width, centered      │
+│                 ╱ ─ blue/purple glow ─ ╲                       │
+│  ┌───────────────────────┐  ┌───────────────────────┐        │
+│  │ ● LIVE           01   │  │ ● LIVE           02   │        │
+│  │  [ screenshot ]        │  │  [ screenshot ]        │        │
+│  │  NAME                  │  │  NAME                  │        │
+│  │  One-line description  │  │  One-line description  │        │
+│  │  Tech · Tags           │  │  Tech · Tags           │        │
+│  │  url.kodedlabs.com  ↗  │  │  url.kodedlabs.com  ↗  │        │
+│  └───────────────────────┘  └───────────────────────┘        │
+└──────────────────────────────────────────────────────────────┘
+```
+- Centered layout: 3D model → headline → subtext → glow → 2-col card grid.
+- 3D model is a **different asset** than the hero mascot — distinct per-section identity.
+- `GlowGradient` (blue→purple) sits behind/beneath the text block — this is the page's primary accent-color moment; confirm this gradient IS the locked accent going forward (reused in Pre-footer CTA).
+- Cards: simple 2-col (1-col mobile), `BrowserChromeFrame` screenshot, name, one-line description, mono tech tags, live URL, `StatusDot` if genuinely live vs. muted "IN PROGRESS" label.
+- Data-driven from `data.js` — array of products, card grid maps over it. Adding a product = data change only.
+- Fade/slide-up on scroll, staggered ~80ms per card. Hover: border tint toward accent + `translateY(-4px)`, ~150ms ease-out, no 3D tilt (calmer than mascot-scale moments).
+
+**`data.js` shape (products):**
+```js
+{
+  id: "ship",
+  name: "Ship",
+  order: "01",
+  status: "live" | "in_progress",
+  description: "One-line, plain language.",
+  stack: ["Rust", "Postgres"],
+  url: "https://ship.kodedlabs.com",
+  screenshot: "/assets/products/ship.png"
+}
+```
+
+---
+
+## 6. How We Build
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  HOW WE BUILD                                                  │
+│  ┌───────────────────┐        ┌─────────────────────────┐   │
+│  │ Systems first,      │        │ [ screen recording,       │   │
+│  │ not UI first.       │        │   muted, click-to-play ]  │   │
+│  │                     │        │                    ⊙▶     │   │
+│  │ Short narrative      │        │        (play btn, gray    │   │
+│  │ paragraph.           │        │      rounded bg, bottom-  │   │
+│  └───────────────────────┘        │      right, ~16-20px pad)│   │
+│                                     └─────────────────────────┘   │
+├──────────────────────────────────────────────────────────────┤
+│   RUST   GO   PYTHON   TYPESCRIPT   POSTGRES   SOLANA   ···    │
+└──────────────────────────────────────────────────────────────┘
+```
+- Asymmetric editorial split — left-aligned headline, ~40/60 or 45/55 text/video split desktop, stacks on mobile (text first, then video).
+- **No live terminal animation in this section** (explicitly cut).
+- Video: real poster still (not generic placeholder), does NOT autoplay. Play button overlay: circle, translucent gray/dark bg (`rgba(255,255,255,0.1)` + blur), small triangle icon, bottom-right of frame. Click plays inline in place.
+- `data.js` should support a `video` field per instance if multiple clips will ever be swapped in — don't hardcode a single clip path in the component.
+- Language/tool strip beneath: reuse `Marquee` component, mono, uppercase, low opacity (~40-50%), slow drift.
+- Fade/slide-in on scroll, no stagger needed (only two blocks).
+
+---
+
+## 7. Education
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                   [ 3D model #3, centered ]                     │
+│               TEACHING THE NEXT BUILDERS                        │
+│         100+ students, across 4+ programs, one goal —           │
+│              turning beginners into builders.                   │
+├──────────────────────────────────────────────────────────────┤
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                 │
+│  │ photo   │ │ photo   │ │ photo   │ │ photo   │                 │
+│  └────────┘ └────────┘ └────────┘ └────────┘                 │
+└──────────────────────────────────────────────────────────────┘
+```
+- Mirrors Products layout exactly for the top half (3D model → headline → subtext), but the grid below is **explicitly not the Products card pattern**: no borders, no lift, no per-item chrome.
+- Clean photo grid — consistent aspect ratio (square or 4:5), tight gutters. Subtle hover only: `scale(1.02)` + slight brightness increase, nothing more.
+- Optional: one photo spans 2 columns if a standout shot exists (group photo, mid-lecture moment) — otherwise uniform grid.
+- Photos: ECX Build, Stackd, MCA, and other programs — text-only stub cards acceptable until real photos are supplied, but final version is image-first.
+
+---
+
+## 8. Founder Story
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  ┌─────────────────────────┐        ┌───────────────────┐   │
+│  │  [ photo of you,          │        │  THE STORY           │   │
+│  │    working/candid,        │        │  Short narrative      │   │
+│  │    not posed headshot ]   │        │  paragraph (2-4        │   │
+│  │  (subtle duotone/desat     │        │  sentences).           │   │
+│  │   to match palette — TBD) │        │                       │   │
+│  │                           │        │  "I will be the        │   │
+│  │                           │        │   greatest engineer    │   │
+│  │                           │        │   to ever come out     │   │
+│  │                           │        │   of Africa."           │   │
+│  │                           │        │  (pull quote, larger)  │   │
+│  └─────────────────────────┘        │  Currently building     │   │
+│                                       │  Kodedstack · Lagos, NG│   │
+│                                       └───────────────────┘   │
+└──────────────────────────────────────────────────────────────┘
+```
+- Editorial split again, **sides reversed** from How We Build (photo left this time) so the page doesn't repeat the same layout back-to-back.
+- Photo: full-bleed within its frame, no browser-chrome treatment (that motif is reserved for screens/UI, never portraits).
+- Text: brief narrative + standalone pull-quote (larger type / lighter weight, visually separated) + small mono status line underneath.
+- No stats repeated here — this section's job is voice, not proof.
+- Photo and text fade/slide in, staggered ~100ms (photo first).
+
+---
+
+## 9. Pre-Footer CTA
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                [ 3D model — largest instance,                  │
+│                  matches/exceeds hero scale ]                  │
+│                 Got something to build?                         │
+│         Tell me what you're working on — I read                │
+│              every message myself.                              │
+│         ┌─────────────────────────────┐  ┌────────┐           │
+│         │  your@email.com               │  │ Send → │           │
+│         └─────────────────────────────┘  └────────┘           │
+└──────────────────────────────────────────────────────────────┘
+```
+- 3D model here is the **largest on the page** alongside (or exceeding) the hero mascot — closing "full circle" statement.
+- Centered headline + subtext, same narrow max-width pattern as Products/Education.
+- Single email input + Send button (confirm: email-only vs. email + short message — decides single-line vs. two-field layout).
+- Wiring: lean toward a real lightweight endpoint (Contabo VPS or small serverless function) forwarding to email or a Telegram bot — consistent with existing KODED OS infra — rather than a plain `mailto:` link.
+- Input styling matches card/frame aesthetic: dark fill, thin border, focus state = accent-colored `box-shadow` glow, not a harsh outline.
+- Reuse `GlowGradient` (blue/purple) one final time, subtly behind the model or input — bookends the accent across the page.
+
+---
+
+## 10. Footer
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  KL  KODED LABS          PRODUCTS      COMPANY      CONNECT   │
+│  Independent product      Ship          About         Twitter │
+│  studio building real     Scafld        Education     GitHub  │
+│  infrastructure.          EV Hacks      Founder Story LinkedIn│
+│                            Recivo                      Email   │
+│                            + more (data-driven)                │
+├──────────────────────────────────────────────────────────────┤
+│  © 2026 Koded Labs · Lagos, NG      ● All systems operational  │
+│                                        [X] [GH] [in] [✉]        │
+└──────────────────────────────────────────────────────────────┘
+```
+- **Top block**: 4-column desktop (brand + 3 link columns), stacked/accordion on mobile.
+  - Col 1: brand mark, name, one-line description, no links.
+  - Col 2 (Products): links pulled from the same `data.js` used in Products section.
+  - Col 3 (Company): About/Founder Story, Education, future Blog placeholder.
+  - Col 4 (Connect): Twitter, GitHub, LinkedIn, Email as text links.
+- **Bottom strip**: thin top border, copyright + location left, `StatusDot` center/right (third reuse — nav, trust bar implicitly, footer), social icons far right (16-20px, monochrome, brighten to accent on hover) — icons only here since column 4 already spells names out as text.
+- Socials confirmed: Twitter, GitHub, LinkedIn, Email. TikTok/Instagram excluded — those serve the lifestyle-persona audience, not kodedlabs.com's engineer-persona visitors.
+
+---
+
+## 11. Assets Checklist
+
+- [ ] Mascot / character 3D model — commercial-license GLB, Draco-compressed
+- [ ] 2 additional 3D models (Products section, Education section) — distinct from mascot and from each other
+- [ ] Hero product demo video (muted loop) — confirm Ship or Scafld
+- [ ] "How We Build" screen recording (you working) + poster still
+- [ ] Product screenshots — Ship, Scafld, EV Hacks, Recivo, + 5th product
+- [ ] Education photos — ECX Build, Stackd, MCA, others
+- [ ] Founder photo — candid/working shot, not posed headshot
+- [ ] Final accent hex values (blue/purple gradient)
+- [ ] Final mascot concept pick (or confirm which of the acquired models is primary)
+
+---
+
+## 12. Tech Stack (existing, confirmed)
+
+- Vite + React
+- `three.js` / `@react-three/fiber` + `@react-three/drei` (`useGLTF`, Suspense) for 3D
+- Framer Motion (or CSS scroll-timeline) for reveals/animation
+- Playwright (existing prerender setup)
+- `gltfjsx` + Draco compression for model pipeline
+- `data.js` as single source of truth for Products, Education programs, and Footer product links
+
+---
+
+## 13. Open Decisions (not yet locked)
+
+1. Exact accent hex values (blue/purple).
+2. Which product powers the hero demo video.
+3. Pre-footer CTA: email-only vs. email + message field.
+4. CTA backend: mailto vs. endpoint → email vs. endpoint → Telegram.
+5. Founder photo treatment: full color vs. duotone/desaturated.
+6. Mascot final pick from acquired models.

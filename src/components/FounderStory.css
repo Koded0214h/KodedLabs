@@ -1,0 +1,59 @@
+.founder-story {
+  padding: var(--section-pad-desktop) 24px;
+  background: var(--bg-base);
+}
+
+.fs-split {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.fs-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+.fs-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent-purple);
+}
+
+.fs-desc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin: 16px 0 28px;
+  max-width: 460px;
+}
+
+.fs-quote {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.4;
+  color: var(--text-primary);
+  border-left: 2px solid var(--accent-purple);
+  padding-left: 20px;
+  margin-bottom: 28px;
+  max-width: 460px;
+}
+
+.fs-status {
+  opacity: 0.85;
+}
+
+@media (max-width: 820px) {
+  .fs-split {
+    grid-template-columns: 1fr;
+  }
+}

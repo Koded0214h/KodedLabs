@@ -1,0 +1,123 @@
+.how-we-build {
+  padding: var(--section-pad-desktop) 24px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+}
+
+.hwb-split {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hwb-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent-blue);
+}
+
+.hwb-tabs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.hwb-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: background 0.15s ease-out, color 0.15s ease-out;
+}
+
+.hwb-tab:last-child {
+  border-bottom: none;
+}
+
+.hwb-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hwb-tab--active {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+.hwb-tab-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+.hwb-tab--active .hwb-tab-index {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 1;
+}
+
+.hwb-tab-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.hwb-panel {
+  margin-top: 24px;
+  animation: cell-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hwb-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(22px, 2.8vw, 30px);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.hwb-desc {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 420px;
+}
+
+.hwb-video {
+  animation: cell-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hwb-image {
+  display: block;
+  width: 100%;
+}
+
+.hwb-marquee {
+  margin-top: 64px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 820px) {
+  .hwb-split {
+    grid-template-columns: 1fr;
+  }
+}
