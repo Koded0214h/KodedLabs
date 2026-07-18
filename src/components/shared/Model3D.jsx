@@ -169,10 +169,24 @@ export default function Model3D({
   className = '',
   cameraDistance,
   fitMargin = DEFAULT_FIT_MARGIN,
+  defer = false,
 }) {
   const [wrapRef, inView] = useInView('150px', { once: false })
   const [frameloop, setFrameloop] = useState('always')
+  const [ready, setReady] = useState(!defer)
   const reduceMotion = usePrefersReducedMotion()
+
+  // When defer=true, hold off on creating the WebGL canvas until the browser
+  // is idle — keeps the main thread free for LCP and TTI.
+  useEffect(() => {
+    if (!defer || ready) return
+    const id = typeof requestIdleCallback !== 'undefined'
+      ? requestIdleCallback(() => setReady(true), { timeout: 3000 })
+      : setTimeout(() => setReady(true), 300)
+    return () => typeof cancelIdleCallback !== 'undefined'
+      ? cancelIdleCallback(id)
+      : clearTimeout(id)
+  }, [defer, ready])
 
   const meshes = models ?? [{ url: modelUrl, scale, rotationY, position: [0, 0, 0] }]
   const maxScale = Math.max(...meshes.map(m => m.scale ?? 1))
@@ -188,7 +202,7 @@ export default function Model3D({
 
   return (
     <div ref={wrapRef} className={`model3d ${className}`} style={{ height }} aria-hidden="true">
-      {inView && (
+      {inView && ready && (
         <ModelErrorBoundary label={label} fallback={fallback}>
           <Suspense fallback={fallback}>
             <Canvas

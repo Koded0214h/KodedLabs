@@ -14,6 +14,7 @@ export default function Hero() {
           height="100%"
           placeholderLabel="MASCOT"
           className="hero-mascot"
+          defer
         />
         <div className="hero-scrim" />
 
