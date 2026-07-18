@@ -20,7 +20,7 @@ export default function Hero() {
 
         <div className="hero-copy">
           <h1 className="hero-title">
-            Great companies <br />need great products.
+            Great companies <br />need great products
           </h1>
           <p className="hero-subtitle">
             Koded Labs designs and engineers them <br /> where good ideas meet execution that holds up.
