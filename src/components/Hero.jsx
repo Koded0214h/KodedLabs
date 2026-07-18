@@ -32,6 +32,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-video-wrap">
+        <div className="hero-cone-glow" aria-hidden="true" />
         <BrowserChromeFrame label="scafld.kodedlabs.com" className="hero-video-frame">
           <video
             src="/videos/scafld-demo.mp4"

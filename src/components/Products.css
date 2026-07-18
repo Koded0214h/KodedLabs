@@ -25,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* Heading + stack pinned together so they stay adjacent (no viewport-sized
@@ -74,9 +75,46 @@
   cursor: default;
 }
 
+/* ── Drone — in-flow above the section heading ── */
+.products-drone {
+  width: 420px !important;
+  height: 420px !important;
+  flex-shrink: 0;
+  margin-bottom: -32px;
+}
+
+/* ── Media panel ─────────────────── */
 .product-row-media {
   flex: 0 0 42%;
   overflow: hidden;
+  position: relative;
+}
+
+/* Conical spotlight glow from the top */
+.product-row-media::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 55%;
+  background: radial-gradient(ellipse 75% 100% at 50% 0%, rgba(255, 255, 255, 0.11) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Tiny dark dot grid */
+.product-row-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.65) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-position: 9px 9px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
 }
 
 .product-row-media .chrome-frame {

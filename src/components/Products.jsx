@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import GlowGradient from './shared/GlowGradient'
+import Model3D from './shared/Model3DLazy'
 import SectionHeading from './shared/SectionHeading'
 import BrowserChromeFrame from './shared/BrowserChromeFrame'
 import PlaceholderFrame from './shared/PlaceholderFrame'
@@ -133,6 +134,15 @@ export default function Products() {
         <div className="products-sticky">
           <div className="products-inner">
             <GlowGradient size={560} opacity={0.12} />
+            <Model3D
+              modelUrl="/models/drone.glb"
+              scale={1.1}
+              idle="bob"
+              height={420}
+              rotationY={Math.PI}
+              placeholderLabel="DRONE"
+              className="products-drone"
+            />
             <SectionHeading
               eyebrow="Products"
               title="Real things, shipped."

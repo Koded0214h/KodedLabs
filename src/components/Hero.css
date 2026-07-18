@@ -124,13 +124,33 @@
   padding: 0 24px 120px;
 }
 
+/* Cone glow — tall narrow ellipse anchored at the frame's top border.
+   The radial falloff IS the cone shape; no clip-path needed. */
+.hero-cone-glow {
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 38% 100% at 50% 100%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 72%
+  );
+}
+
 .hero-video-frame {
   position: relative;
   z-index: 1;
   box-shadow:
-    0 0 0 1px var(--border),
-    0 -6px 44px -6px rgba(255, 255, 255, 0.16),
-    0 0 70px -10px rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 -2px 24px 4px rgba(255, 255, 255, 0.13),
+    0 -2px 60px 12px rgba(255, 255, 255, 0.07),
+    0 -2px 120px 30px rgba(255, 255, 255, 0.04),
     0 40px 90px -30px rgba(0, 0, 0, 0.9);
 }
 
