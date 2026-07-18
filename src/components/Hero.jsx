@@ -41,8 +41,11 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="metadata"
-          />
+            preload="auto"
+            aria-label="Scafld product demo"
+          >
+            <track kind="captions" />
+          </video>
         </BrowserChromeFrame>
       </div>
     </section>

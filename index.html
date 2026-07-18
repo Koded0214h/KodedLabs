@@ -32,10 +32,15 @@
     <meta name="twitter:description" content="We build products that solve real problems — for developers, for workers, for infrastructure that doesn't exist yet." />
     <meta name="twitter:image"       content="https://kodedlabs.com/og.png" />
 
-    <!-- ── Fonts ────────────────────────────────── -->
+    <!-- ── Fonts (non-blocking) ──────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" /></noscript>
+
+    <!-- ── Preload critical assets ───────────────── -->
+    <link rel="preload" as="video" href="/videos/scafld-demo.mp4" type="video/mp4" />
   </head>
   <body>
     <div id="root"></div>

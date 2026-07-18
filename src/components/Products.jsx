@@ -48,7 +48,7 @@ function ProductRow({ p }) {
         {p.url && (
           <div className="product-row-cta">
             <span>{p.url.replace('https://', '')}</span>
-            <span className="product-arrow">↗</span>
+            <span className="product-arrow" aria-hidden="true">↗</span>
           </div>
         )}
       </div>
