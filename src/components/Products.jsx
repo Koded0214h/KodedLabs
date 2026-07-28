@@ -1,165 +1,110 @@
-import { useEffect, useRef } from 'react'
 import GlowGradient from './shared/GlowGradient'
-import Model3D from './shared/Model3DLazy'
 import SectionHeading from './shared/SectionHeading'
-import BrowserChromeFrame from './shared/BrowserChromeFrame'
 import PlaceholderFrame from './shared/PlaceholderFrame'
-import StatusDot from './shared/StatusDot'
-import { products } from '../data'
+import { githubOrg, products } from '../data'
 import './Products.css'
 
-function ProductRow({ p }) {
-  const isLive = p.status === 'live'
-  const Tag = p.url ? 'a' : 'div'
-  const linkProps = p.url ? { href: p.url, target: '_blank', rel: 'noreferrer' } : {}
+function getGithubHref(p) {
+  return p.github || githubOrg
+}
+
+function getLogoLabel(p) {
+  if (p.logo) return p.logo
+  return p.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+}
+
+function ProductCard({ p }) {
+  const githubHref = getGithubHref(p)
+  const liveHref = p.url
+  const logoLabel = getLogoLabel(p)
 
   return (
-    <Tag className={`product-row${!p.url ? ' product-row--soon' : ''}`} {...linkProps}>
-      <div className="product-row-media">
-        <BrowserChromeFrame label={p.url ? p.url.replace('https://', '') : undefined}>
-          {p.screenshot
-            ? <img src={p.screenshot} alt={`${p.name} screenshot`} />
-            : <PlaceholderFrame label="SCREENSHOT PENDING" ratio="16 / 10" />
-          }
-        </BrowserChromeFrame>
+    <article className={`product-card${!liveHref ? ' product-card--coming-soon' : ''}`}>
+      <div className="product-card-media">
+        {p.screenshot ? (
+          <img
+            className="product-card-image"
+            src={p.screenshot}
+            alt={`${p.name} preview`}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <PlaceholderFrame label="IMAGE PENDING" ratio="16 / 10" className="product-card-placeholder" />
+        )}
       </div>
 
-      <div className="product-row-body">
-        <div className="product-row-top">
-          <span className="product-num">{p.order}</span>
-          {isLive
-            ? <StatusDot label="LIVE" />
-            : <span className="product-badge product-badge--soon">IN PROGRESS</span>
-          }
+      <div className="product-card-body">
+        <div className="product-card-header">
+          <div className="product-card-logo" aria-hidden="true">
+            <span>{logoLabel}</span>
+          </div>
+          <div className="product-card-meta">
+            <span className="product-card-kicker">{p.order}</span>
+            <h3 className="product-card-title">{p.name}</h3>
+          </div>
         </div>
 
-        <h3 className="product-row-title">
-          <span className="product-row-title-text">{p.name}</span>
-        </h3>
+        {p.description && <p className="product-card-desc">{p.description}</p>}
 
-        {p.description && <p className="product-desc">{p.description}</p>}
-
-        {p.stack.length > 0 && (
+        {p.tags?.length > 0 && (
           <div className="product-tags">
-            {p.stack.map(t => <span key={t} className="product-tag">{t}</span>)}
+            {p.tags.map(t => <span key={t} className="product-tag">{t}</span>)}
           </div>
         )}
 
-        {p.url && (
-          <div className="product-row-cta">
-            <span>{p.url.replace('https://', '')}</span>
-            <span className="product-arrow" aria-hidden="true">↗</span>
-          </div>
-        )}
+        <div className="product-card-actions">
+          <a
+            className="product-card-btn"
+            href={githubHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${p.name} on GitHub`}
+          >
+            Github
+          </a>
+          {liveHref ? (
+            <a
+              className="product-card-btn product-card-btn--primary"
+              href={liveHref}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${p.name} live site`}
+            >
+              Live link
+            </a>
+          ) : (
+            <span className="product-card-btn product-card-btn--disabled" aria-disabled="true">
+              Live link
+            </span>
+          )}
+        </div>
       </div>
-    </Tag>
+    </article>
   )
 }
 
-// Scroll-linked stack. The `.products-scroll` spacer is several viewports tall;
-// as it scrolls past the pinned sticky, each card rises from below and covers
-// the previous one (newest on top), while placed cards recede up + shrink + dim
-// so the growing deck stays visible. Once the last card rests, the sticky
-// releases and normal scrolling resumes.
-function useScrollStack(count) {
-  const scrollRef = useRef(null)
-  const cardRefs = useRef([])
-
-  useEffect(() => {
-    const update = () => {
-      const el = scrollRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const travel = rect.height - window.innerHeight
-      const p = travel > 0 ? Math.min(1, Math.max(0, -rect.top / travel)) : 0
-      // activeFloat runs 1..count so card 0 rests on top at the start and each
-      // card i becomes the resting top card at p = i/(count-1).
-      const active = 1 + p * (count - 1)
-
-      cardRefs.current.forEach((card, i) => {
-        if (!card) return
-        const delta = active - i
-        let translateY, scale, opacity
-
-        if (delta < 0) {
-          translateY = 140
-          opacity = 0
-          scale = 0.94
-        } else if (delta <= 1) {
-          translateY = (1 - delta) * 140
-          opacity = Math.min(delta * 1.6, 1)
-          scale = 0.94 + delta * 0.06
-        } else {
-          const past = Math.min(delta - 1, 8)
-          translateY = -past * 10
-          opacity = Math.max(1 - past * 0.14, 0.25)
-          scale = 1 - past * 0.03
-        }
-
-        card.style.transform = `translateY(${translateY}px) scale(${scale})`
-        card.style.opacity = opacity
-        card.style.zIndex = i + 1
-      })
-    }
-
-    let ticking = false
-    const onScroll = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        update()
-        ticking = false
-      })
-    }
-
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [count])
-
-  return { scrollRef, cardRefs }
-}
-
 export default function Products() {
-  const { scrollRef, cardRefs } = useScrollStack(products.length)
-  const scrollHeight = `${(products.length - 1) * 72 + 100}vh`
-
   return (
     <section className="products" id="products">
-      <div ref={scrollRef} className="products-scroll" style={{ height: scrollHeight }}>
-        <div className="products-sticky">
-          <div className="products-inner">
-            <GlowGradient size={560} opacity={0.12} />
-            <Model3D
-              modelUrl="/models/drone.glb"
-              scale={1.1}
-              idle="bob"
-              height={420}
-              rotationY={Math.PI}
-              placeholderLabel="DRONE"
-              className="products-drone"
-            />
-            <SectionHeading
-              eyebrow="Products"
-              title="Real things, shipped."
-              subtext="Every product solves one problem worth solving — for developers, workers, and the infrastructure that doesn't exist yet."
-            />
-            <div className="products-stack">
-              {products.map((p, i) => (
-                <div
-                  key={p.id}
-                  className="product-stack-slot"
-                  ref={el => { cardRefs.current[i] = el }}
-                >
-                  <ProductRow p={p} />
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="products-inner">
+        <GlowGradient size={560} opacity={0.1} />
+        <SectionHeading
+          eyebrow="Products"
+          title="Real things, shipped."
+          subtext="A focused grid of products, each with a visual preview, a clear identity, and direct routes to the code and the live experience."
+        />
+
+        <div className="products-grid">
+          {products.map(p => (
+            <ProductCard key={p.id} p={p} />
+          ))}
         </div>
       </div>
     </section>

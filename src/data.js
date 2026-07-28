@@ -2,6 +2,9 @@
 // Trust Bar, Education, marquees, socials). Screenshots/photos are `null`
 // until real assets are supplied — components fall back to PlaceholderFrame.
 
+// `logo` is a short monogram used in the card header when no asset exists.
+// `github` can point to a repo or fall back to the org GitHub. `tags` are
+// category labels (edit freely to match each product's real stack).
 export const products = [
   {
     id: 'scafld',
@@ -9,8 +12,10 @@ export const products = [
     order: '01',
     status: 'live',
     description: 'The complete backend lifecycle platform. From idea to deployed API without switching tools.',
-    stack: ['TBD'],
+    tags: ['Backend', 'DevTools', 'API'],
     url: 'https://scafld.kodedlabs.com',
+    github: 'https://github.com/Koded0214h',
+    logo: 'SC',
     screenshot: '/img/scafld.webp',
   },
   {
@@ -19,8 +24,10 @@ export const products = [
     order: '02',
     status: 'live',
     description: "WAEC for the informal economy. A voice-and-simulation skill exam that turns a trader's hands into a verifiable credential.",
-    stack: ['TBD'],
+    tags: ['Voice AI', 'EdTech', 'Credentials'],
     url: 'https://recivo.vercel.app',
+    github: 'https://github.com/Koded0214h',
+    logo: 'RE',
     screenshot: '/img/recivo.webp',
   },
   {
@@ -29,8 +36,10 @@ export const products = [
     order: '03',
     status: 'live',
     description: "Nigeria's EV intelligence layer. Find where to build charging infrastructure or where to charge your vehicle.",
-    stack: ['TBD'],
+    tags: ['Geospatial', 'Maps', 'Climate'],
     url: 'https://ev-hacks.vercel.app',
+    github: 'https://github.com/Koded0214h/EV-Hacks',
+    logo: 'EV',
     screenshot: '/img/ev-hacks.webp',
   },
   {
@@ -39,21 +48,40 @@ export const products = [
     order: '04',
     status: 'live',
     description: 'AI-powered deployment CLI. Describe your stack in plain English — Ship generates Docker, Nginx, SSL, and CI/CD configs and deploys to your own VPS.',
-    stack: ['TBD'],
+    tags: ['CLI', 'DevOps', 'AI'],
     url: 'https://ship-it.kodedlabs.com',
+    github: 'https://github.com/Koded0214h/ship-it',
+    logo: 'SH',
     screenshot: '/img/ship.webp',
+  },
+  {
+    id: 'palette-preview',
+    name: 'Palette Preview',
+    order: '05',
+    status: 'in_progress',
+    description: 'A client-side design token generator that turns four seed hues into accessible color ramps, semantic UI tokens, and export-ready CSS, Tailwind, shadcn, or JSON.',
+    tags: ['Design Tokens', 'Color', 'WCAG'],
+    url: null,
+    github: 'https://github.com/Koded0214h/pallete-preview',
+    logo: 'PP',
+    screenshot: '/img/pallete-preview.webp',
   },
   {
     id: 'stackd',
     name: 'Stackd',
-    order: '05',
+    order: '06',
     status: 'in_progress',
     description: 'A hands-on bootcamp guiding students from first line of code to shipped, production-ready projects. Website incoming.',
-    stack: [],
+    tags: ['Education', 'Mentorship'],
     url: null,
+    github: 'https://github.com/Koded0214h',
+    logo: 'ST',
     screenshot: null,
   },
 ]
+
+// Fallback GitHub target when a product has no dedicated repo URL yet.
+export const githubOrg = 'https://github.com/Koded0214h'
 
 // PLACEHOLDER — confirm real program names/photos/descriptions.
 export const education = [
@@ -116,8 +144,8 @@ export const buildStages = [
 
 // PLACEHOLDER — fill in real profile URLs; '#' renders a disabled-looking link.
 export const socials = [
-  { id: 'twitter',  label: 'Twitter',  icon: 'x-mono-icon',      url: '#' },
-  { id: 'github',   label: 'GitHub',   icon: 'github-mono-icon', url: '#' },
-  { id: 'linkedin', label: 'LinkedIn', icon: 'linkedin-icon', url: '#' },
-  { id: 'email',    label: 'Email',    icon: 'email-icon',    url: 'mailto:hello@kodedlabs.com' },
+  { id: 'twitter',  label: 'Twitter',  icon: 'x-mono-icon',      url: 'https://x.com/coder0214h' },
+  { id: 'github',   label: 'GitHub',   icon: 'github-mono-icon', url: 'https://github.com/Koded0214h' },
+  { id: 'linkedin', label: 'LinkedIn', icon: 'linkedin-icon', url: 'https://www.linkedin.com/in/koded0214h' },
+  { id: 'email',    label: 'Email',    icon: 'email-icon',    url: 'mailto:coder0214h@gmail.com' },
 ]
