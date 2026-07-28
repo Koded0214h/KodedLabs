@@ -199,15 +199,6 @@
   outline-offset: 4px;
 }
 
-.nav-brand:hover .nav-brand-shell {
-  border-color: var(--border-strong);
-}
-
-.nav-brand:hover .nav-wordmark,
-.nav-brand:hover .nav-mark {
-  color: var(--text-primary);
-}
-
 .nav-mark {
   display: flex;
   align-items: center;
